@@ -6,6 +6,7 @@ import TotalDisplay from "./TotalDisplay";
 import CalcButton from "./CalcButton";
 
 import reducer, { initialState } from "../reducers";
+import { addOne } from "../actions/index";
 
 function App() {
     // connect reducer
