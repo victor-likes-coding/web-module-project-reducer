@@ -6,11 +6,39 @@ import TotalDisplay from "./TotalDisplay";
 import CalcButton from "./CalcButton";
 
 import reducer, { initialState } from "../reducers";
-import { addOne } from "../actions/index";
+import { applyNumber, changeOperation, clearDisplpay, saveToMemory, readFromMemory, clearMemory } from "../actions/index";
 
 function App() {
     // connect reducer
     const [state, dispatch] = useReducer(reducer, initialState);
+
+    const addOneHandler = () => {
+        dispatch(addOne());
+    };
+
+    const processNumberHandler = (number) => {
+        dispatch(applyNumber(number));
+    };
+
+    const processOperationHandler = (operation) => {
+        dispatch(changeOperation(operation));
+    };
+
+    const processClearDisplay = () => {
+        dispatch(clearDisplpay());
+    };
+
+    const save = () => {
+        dispatch(saveToMemory());
+    };
+
+    const read = () => {
+        dispatch(readFromMemory());
+    };
+
+    const clear = () => {
+        dispatch(clearMemory());
+    };
 
     return (
         <div className="App">
@@ -37,37 +65,65 @@ function App() {
                         </div>
 
                         <div className="row">
-                            <CalcButton value={"M+"} />
-                            <CalcButton value={"MR"} />
-                            <CalcButton value={"MC"} />
+                            <CalcButton
+                                value={"M+"}
+                                onClick={() => save()}
+                            />
+                            <CalcButton
+                                value={"MR"}
+                                onClick={() => read()}
+                            />
+                            <CalcButton
+                                value={"MC"}
+                                onClick={() => clear()}
+                            />
                         </div>
 
                         <div className="row">
-                            <CalcButton value={1} />
-                            <CalcButton value={2} />
-                            <CalcButton value={3} />
+                            {[1, 2, 3].map((number) => (
+                                <CalcButton
+                                    value={number}
+                                    onClick={() => processNumberHandler(number)}
+                                    key={number}
+                                />
+                            ))}
                         </div>
 
                         <div className="row">
-                            <CalcButton value={4} />
-                            <CalcButton value={5} />
-                            <CalcButton value={6} />
+                            {[4, 5, 6].map((number) => (
+                                <CalcButton
+                                    value={number}
+                                    onClick={() => processNumberHandler(number)}
+                                    key={number}
+                                />
+                            ))}
                         </div>
 
                         <div className="row">
-                            <CalcButton value={7} />
-                            <CalcButton value={8} />
-                            <CalcButton value={9} />
+                            {[7, 8, 9].map((number) => (
+                                <CalcButton
+                                    value={number}
+                                    onClick={() => processNumberHandler(number)}
+                                    key={number}
+                                />
+                            ))}
                         </div>
 
                         <div className="row">
-                            <CalcButton value={"+"} />
-                            <CalcButton value={"*"} />
-                            <CalcButton value={"-"} />
+                            {["+", "*", "-"].map((operator) => (
+                                <CalcButton
+                                    value={operator}
+                                    onClick={() => processOperationHandler(operator)}
+                                    key={operator}
+                                />
+                            ))}
                         </div>
 
                         <div className="row ce_button">
-                            <CalcButton value={"CE"} />
+                            <CalcButton
+                                value={"CE"}
+                                onClick={() => processClearDisplay()}
+                            />
                         </div>
                     </form>
                 </div>
